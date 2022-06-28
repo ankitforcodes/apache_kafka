@@ -4,3 +4,15 @@
       RAM 4GB
       Disk 10GB
 Pre-requisite:
+      Java
+      Zookeeper (comes with Kafka bundle)
+      Kafka bundle
+      
+1. Step 1: Java: yum install java
+           Check installation: java --version
+           
+2. Step 2: Download Kafka Bundle (use latest version)
+         : wget  https://archive.apache.org/dist/kafka/2.7.1/kafka_2.13-2.7.1.tgz
+         : Unpack: tar -xzf kafka_2.13-2.7.1.tgz
+         
+3. Step 3: Start Zookeeper: bin/zookeeper-server-start.sh config/zookeeper.properties
