@@ -16,3 +16,27 @@ Pre-requisite:
          : Unpack: tar -xzf kafka_2.13-2.7.1.tgz
          
 3. Step 3: Start Zookeeper: bin/zookeeper-server-start.sh config/zookeeper.properties
+
+4. Step 4: Creating a 3 node cluster:
+         : cp config/server.properties config/server0.properties
+         : cp config/server.properties config/server1.properties
+         : cp config/server.properties config/server2.properties
+         
+5. Edit kafka-server properties (broker.id, port, logs.dir)
+      : vi config/server0.properties
+      And the following changes:
+      broker.id=0
+      listeners=PLAINTEXT://localhost:9092
+      log.dirs= /tmp/mykafka/kafka-logs-0
+      
+      : vi config/server1.properties
+      And the following changes:
+      broker.id=1
+      listeners=PLAINTEXT://localhost:9093
+      log.dirs= /tmp/mykafka/kafka-logs-1
+      
+      : vi config/server2.properties
+      And the following changes:
+      broker.id=2
+      listeners=PLAINTEXT://localhost:9094
+      log.dirs= /tmp/mykafka/kafka-logs-2
