@@ -1,0 +1,6 @@
+* Linux is the most likely OS for Kafka
+* General hardware recoomendation :
+      CPU 2
+      RAM 4GB
+      Disk 10GB
+Pre-requisite:
