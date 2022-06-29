@@ -1,0 +1,5 @@
+1. Create topic: 
+  bin/kafka-topics.sh --create --bootstrap-server localhost:9094 --topic ankit-demo --partitions 3 --replication-factor 3
+
+2. List existing topics:
+  bin/kafka-topics.sh --list --bootstrap-server localhost:9093
