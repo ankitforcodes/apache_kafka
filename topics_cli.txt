@@ -3,3 +3,6 @@
 
 2. List existing topics:
   bin/kafka-topics.sh --list --bootstrap-server localhost:9093
+  
+3. Describe a topics:
+  bin/kafka-topics.sh --bootstrap-server localhost:9093 --describe --topic ankit-demo
