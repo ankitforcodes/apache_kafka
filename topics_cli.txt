@@ -10,5 +10,8 @@
 4. Produce message:
   bin/kafka-console-producer.sh --bootstrap-server localhost:9094 --topic ankit-demo
   
-5. Consume message:
+5. Consume message (latest):
   bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo
+
+6. Consume message (from beginning):
+  bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo --from-beginning
