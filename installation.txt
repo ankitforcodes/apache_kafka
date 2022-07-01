@@ -44,6 +44,6 @@ Pre-requisite:
       
  6. Step : Start all 3 kafka servers:
       bin/kafka-server-start.sh config/server0.properties
-      bin/kafka-server-start.sh config/server01.properties
+      bin/kafka-server-start.sh config/server1.properties
       bin/kafka-server-start.sh config/server2.properties
 
