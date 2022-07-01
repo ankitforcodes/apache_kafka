@@ -1,0 +1,21 @@
+1. In thefolder where you installed Kafka, locate the following files under the config directory:
+    a. conig/connect-standalone.properties
+    b. config/connect-file-sink.properties
+    
+2. Make a copy of connect-file-source.properties file
+    cp config/connect-file-sink.properties config/file-sink.properties
+    
+3. Edit the newly created file with the following content:
+    name=file-based-sink
+    connector.class=FileStreamSink
+    tasks.max=1
+    file=output_file.txt
+
+4. Ensure zookeeper and kafka is running
+5. Start the Kafka connect application:
+    bin/connect-standalone.sh config/connect-standalone.properties config/file-sink.properties
+    
+6. Write a message to the topic:
+    bin/kafka-console-producer.sh --bootstrap-server localhost:9094 --topic ankit-demo
+    
+7. Check the file sink:
