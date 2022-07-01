@@ -1,0 +1,24 @@
+1. In thefolder where you installed Kafka, locate the following files under the config directory:
+    a. connect-standalone.properties
+    b. connect-file-source.properties
+    
+2. Make a copy of connect-file-source.properties file
+    cp connect-file-source.properties file-ingestion.properties
+    
+3. Edit the newly created file with the following content:
+    name=file-based-ingestion
+    connector.class=FileStreamSource
+    tasks.max=1
+    file=input_file.txt
+
+4. Ensure zookeeper and kafka is running
+5. Start the Kafka connect application:
+    bin/connect-standalone.sh config/connect-standalone.properties file-ingestion.properties
+    
+6. Write a new line to the input file:
+    echo "hi testing my connetor" >> input_file.txt
+    
+7. Start the consumer:
+     bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo
+     
+8. Check if data is coming in the topic or not
