@@ -1,0 +1,27 @@
+0. Pick or create a topic with multiple partitions (more than 1)
+  click-data
+
+1. Start a producer CLI
+  ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic click-data
+  
+  
+2. Start 1st consumer with groupid
+  ./kafka-console-consumer.sh  --bootstrap-server localhost:9092  --topic click-data  --group=group1
+  
+3. Send messages from producer CLI and verify that all messages are going to this 1st consumer
+
+4. Start 2nd consumer with same group id
+  ./kafka-console-consumer.sh  --bootstrap-server localhost:9092  --topic click-data  --group=group1
+
+5. Verify that messages are now ditributed among these 2 consumers
+
+
+6. If we close any consumer CLI, the partition will be re-taken by active consumer (partition re-balance)
+****************************************************************************************************************
+
+7. Start another consumer with different consumer group
+  ./kafka-console-consumer.sh  --bootstrap-server localhost:9092  --topic click-data  --group=group2
+  
+  Send messages from producer
+  Verify that each message is received by both consumers groups
+  
