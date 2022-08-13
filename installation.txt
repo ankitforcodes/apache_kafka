@@ -8,6 +8,13 @@ Pre-requisite:
       Zookeeper (comes with Kafka bundle)
       Kafka bundle
       
+Step 0: If its a new machine:
+      yum update -y
+      yum install wget
+      yum install -y python3
+      yum install nano
+      yum install java
+      
 1. Step 1: Java: yum install java
            Check installation: java --version
            
