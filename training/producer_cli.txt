@@ -14,7 +14,7 @@ WITH KEYS
 0. Create a topic with multiple partitions
   ./kafka-topics.sh --bootstrap-server localhost:9092 --create  --topic click-data --partitions 3 --replication-factor 1
 1. Sending data to kafka topic
-   ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic click-data --property parse.key = true key.separator=:
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic click-data --property parse.key=true --property key.separator=:
    
     >customer1:home-page
     >customer2:home-page
