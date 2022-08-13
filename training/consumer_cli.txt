@@ -1,0 +1,34 @@
+1. Read messages from Kafka (default is latest, no we see no messages)
+   ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sales-data
+   
+2. Read message from the beginning
+   ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sales-data --from-beginning
+   
+   Start another shell and send messages to this topic to receive data in real-time
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic sales-data
+   
+   
+3. Reading from our click-data topic that had multiple partition (note the order of the received messages)
+  ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic click-data --from-beginning
+  
+  Received Messages:
+    customer3:home-page
+    customer1:order
+    customer2:home-page
+    customer1:add-to-cart
+    customer1:home-page
+    customer1:browsing-products
+    customer2:logout
+    
+  Sent Messages:
+    >customer1:home-page
+    >customer2:home-page
+    >customer1:browsing-products
+    >customer3:home-page
+    >customer2:logout
+    >customer1:add-to-cart
+    >customer1:order
+    
+    
+4. Read message and format with additional metadata
+  ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic click-data --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true
