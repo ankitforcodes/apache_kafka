@@ -1,0 +1,21 @@
+1. List all consumer groups:
+  ./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+  
+2. Describe a consumer group
+   ./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group1
+   
+   GROUP           TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                            HOST            CLIENT-ID
+      group1          click-data      0          11              11              0               consumer-group1-1-16f09853-6696-40fd-a9bd-e8750a760306 /127.0.0.1      consumer-group1-1
+      group1          click-data      1          5               5               0               consumer-group1-1-16f09853-6696-40fd-a9bd-e8750a760306 /127.0.0.1      consumer-group1-1
+      group1          click-data      2          8               8               0               consumer-group1-1-b80e4aaa-64ca-4203-8f5e-4839bd02b6d9 /127.0.0.1      consumer-group1-1
+      
+   Things to note:
+   a. 1 row for each partition
+   b. Current Offset: tells us till which offset the consumer has read the messages
+   c. LOG-END-OFFSET: tells us till which offset message has been produced
+   d. Lag: how far behind consumer is from latest msgs
+   e. ConsumerID: note that since we had deployed 2 consumers in this group, we have 2 unique consumer IDs
+   
+   
+   - Stop the consumers and producer few messages and see the lag increase
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic click-data
