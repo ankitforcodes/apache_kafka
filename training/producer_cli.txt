@@ -1,0 +1,25 @@
+WITHOUT KEYS
+
+1. Send data to Kafka topic
+  ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic sales-data
+  
+2. Sending data to kafka topic that does not exist
+  ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic sales-data1
+  - Kafka will create the topic for you with default configurations (partition 1 and RF1)
+  - sending the 1st message will throw a warning because it takes few seconds to elect a leader of the partition
+  - sending 2nd message onwards will work fine
+  
+  
+WITH KEYS
+0. Create a topic with multiple partitions
+  ./kafka-topics.sh --bootstrap-server localhost:9092 --create  --topic click-data --partitions 3 --replication-factor 1
+1. Sending data to kafka topic
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092  --topic click-data --property parse.key = true key.separator=:
+   
+    >customer1:home-page
+    >customer2:home-page
+    >customer1:browsing-products
+    >customer3:home-page
+    >customer2:logout
+    >customer1:add-to-cart
+    >customer1:order
