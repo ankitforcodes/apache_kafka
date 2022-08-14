@@ -12,11 +12,15 @@
     file=/Ankit/apache_kafka/kafka_2.13-2.7.1/connect-demo/input_file.txt
 
 4. Ensure zookeeper and kafka is running
-5. Start the Kafka connect application:
-    bin/connect-standalone.sh config/connect-standalone.properties file-ingestion.properties
+
     
-6. Write a new line to the input file:
+5. Write a new line to the input file:
     echo "hi testing my connetor" >> input_file.txt
+    
+6. Start the Kafka connect application:
+    bin/connect-standalone.sh config/connect-standalone.properties config/file-ingestion.properties
+    
+    
     
 7. Start the consumer:
      bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo
