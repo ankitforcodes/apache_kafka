@@ -79,13 +79,7 @@ public class ConsumerDemoShutdown {
 }
 
 /*
-Notice few things when you run this code for the first time
-* How it tries to find any previously committed offset so that it can start reading from that offset onwards
- - Found no committed offset for partition click-data-1
- - Found no committed offset for partition click-data-2
- - Found no committed offset for partition click-data-0
-
-* It fetches batch of data from one partition before going to next partition to reduce network costs
-* If you stop this code - it will not close gracefully - we will see in next program
-* If you start the program again, we will not get any messages, because group id is same, but if you change group.id you will get messages
+Graceful shutdown is important so that necessary partition re-balance can occur immediately
+Without immediate re-balance, the re-balance will occur when timeout occurs due to consumer not sending heartbeat messages
+Re-balance on timeout can cause data duplication as the previous consumer did not commit the offset
  */
