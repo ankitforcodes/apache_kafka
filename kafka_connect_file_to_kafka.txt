@@ -9,7 +9,7 @@
     name=file-based-ingestion
     connector.class=FileStreamSource
     tasks.max=1
-    file=input_file.txt
+    file=/Ankit/apache_kafka/kafka_2.13-2.7.1/connect-demo/input_file.txt
 
 4. Ensure zookeeper and kafka is running
 5. Start the Kafka connect application:
