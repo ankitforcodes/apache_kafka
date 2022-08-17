@@ -1,0 +1,18 @@
+1. Launch Ubuntu VM
+  sudo apt-get update && sudo apt-get -y install wget ca-certificates zip net-tools vim nano tar netcat
+  
+# Java Open JDK 8
+  sudo apt-get -y install openjdk-8-jdk
+  java -version
+  
+# Disable RAM Swap - can't set to 0 on certain Linux distro
+sudo sysctl vm.swappiness=1
+echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
+
+cd /
+mkdir -p Ankit/apache-kafka
+cd Ankit/apache-kafka/
+wget https://downloads.apache.org/kafka/3.2.1/kafka_2.12-3.2.1.tgz
+tar -xvf kafka_2.12-3.2.1.tgz
+rm kafka_2.12-3.2.1.tgz
+mv kafka_2.12-3.2.1/ kafka
