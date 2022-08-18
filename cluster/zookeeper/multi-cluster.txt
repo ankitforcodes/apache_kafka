@@ -1,0 +1,80 @@
+1. Launch 3 servers and do the below for all 3
+2. Do the regular setup
+  sudo apt-get update && sudo apt-get -y install wget ca-certificates zip net-tools vim nano tar netcat
+  sudo apt-get -y install openjdk-8-jdk
+  sudo sysctl vm.swappiness=1
+  echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
+  
+  cd /
+  mkdir -p Ankit/apache-kafka
+  cd Ankit/apache-kafka/
+  wget https://downloads.apache.org/kafka/3.2.1/kafka_2.12-3.2.1.tgz
+  tar -xvf kafka_2.12-3.2.1.tgz
+  rm kafka_2.12-3.2.1.tgz
+  mv kafka_2.12-3.2.1/ kafka
+  cd kafka/
+  bin/zookeeper-server-start.sh config/zookeeper.properties
+  
+  Close zookeeper with ctrl+c
+  
+3. Check if servers are able to reach each other on port 2181
+  Launch zookeeper on all 3 servers
+  From Host1: Run:  nc -vz host2 2181
+  From Host1: Run:  nc -vz host3 2181
+  
+  From Host2: Run:  nc -vz host1 2181
+  From Host2: Run:  nc -vz host3 2181
+  
+  From Host3: Run:  nc -vz host1 2181
+  From Host3: Run:  nc -vz host2 2181
+  
+  
+  If you see msg like: Connection to XXXXX 2181 port [tcp/*] succeeded!
+  then we are good
+  
+4. Create data directory on all 3 servers
+    cd ~
+    sudo mkdir -p /data/zookeeper
+    
+ 5. Make the user owner of data directory
+  sudo chown -R root:root /data/
+  
+6. # declare the server's identity
+echo "1" > /data/zookeeper/myid
+echo "2" > /data/zookeeper/myid
+echo "3" > /data/zookeeper/myid
+    
+5. Remove the default zookeeper.properties files from all 3 servers
+  rm /Ankit/apache-kafka/kafka/config/zookeeper.properties
+  
+6. Create new zookeeper.properties on all 3 servers:
+  nano /Ankit/apache-kafka/kafka/config/zookeeper.properties
+  
+  paste the content from: https://github.com/ankitforcodes/apache_kafka/blob/main/cluster/zookeeper/zookeeper.properties
+  in the last 3 lines add the appropriate hostnames
+  
+  
+  Note: Config files for all 3 zookeepers are EXACTLY same
+  
+
+7. Start zookeeper on all 3 servers:
+  /Ankit/apache-kafka/kafka/bin/zookeeper-server-start.sh /Ankit/apache-kafka/kafka/config/zookeeper.properties
+  
+  Note that when you launch the 1st zookeeper its start throwing warning and info as its not able to find other 2 nodes.
+  Once you start the other 2, these warnings will go away
+  
+  
+  Check the logs , 2 servers will say:
+    INFO FOLLOWING - LEADER ELECTION TOOK
+    INFO FOLLOWING - LEADER ELECTION TOOK
+    
+  One server will say:
+     INFO LEADING - LEADER ELECTION TOOK
+     
+8. Check if zookeepers are OK:
+  echo "ruok" | nc HOST1  2181 ; echo
+  echo "ruok" | nc HOST2  2181 ; echo
+  echo "ruok" | nc HOST3  2181 ; echo
+  
+9. Check zookeeper statistics:
+  echo "stat" | nc HOST1  2181 ; echo
