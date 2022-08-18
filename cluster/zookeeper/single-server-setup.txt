@@ -18,3 +18,5 @@ rm kafka_2.12-3.2.1.tgz
 mv kafka_2.12-3.2.1/ kafka
 cd kafka/
 bin/zookeeper-server-start.sh config/zookeeper.properties
+
+
