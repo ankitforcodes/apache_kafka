@@ -58,6 +58,8 @@ reboot
     Zookeeper hosts on line 45: zookeeper.connect=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181/kafka
     
 * Start kafka: This might fail if you are using less than 2GB memory machine
+  Reduce the java heap memory limit to 200MB (should be atleast 4GB in prod):
+    export KAFKA_HEAP_OPTS="-Xmx200m"
   bin/kafka-server-start.sh config/server.properties
   
 ###############################################################################################################
