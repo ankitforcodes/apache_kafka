@@ -1,1 +1,69 @@
-Hi
+* Create  3 nodes and run the following housekeeping commands:
+  sudo apt-get update && sudo apt-get -y install wget ca-certificates zip net-tools vim nano tar netcat
+  sudo apt-get -y install openjdk-8-jdk
+  sudo sysctl vm.swappiness=1
+  echo 'vm.swappiness=1' | sudo tee --append /etc/sysctl.conf
+  
+  cd /
+  mkdir -p Ankit/apache-kafka
+  cd Ankit/apache-kafka/
+  wget https://downloads.apache.org/kafka/3.2.1/kafka_2.12-3.2.1.tgz
+  tar -xvf kafka_2.12-3.2.1.tgz
+  rm kafka_2.12-3.2.1.tgz
+  mv kafka_2.12-3.2.1/ kafka
+  cd kafka/
+  
+* In our case, due to cost factor, we will use the same 3 nodes on which zookeeper is running
+  but this is not recommended in production, we should run zookeeper and brokers on separate servers
+  
+
+* Create data directory
+mkdir -p /data/kafka
+chown -R root:root /data/kafka/
+
+* Start zookeeper as daemon process
+  cd /Ankit/apache-kafka/kafka/
+  bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+   
+check if zookeeper is ok:
+   echo "ruok" | nc HOST1  2181 ; echo
+   
+Repeat for all 3 servers
+
+
+* Increase the file descriptor limit on all 3 servers
+    # Add file limits configs - allow to open 100,000 file descriptors
+  echo "* hard nofile 100000
+  * soft nofile 100000" | sudo tee --append /etc/security/limits.conf
+  
+* Restart machine for the effect to take place
+reboot
+
+* Restart zookeeper
+  cd /Ankit/apache-kafka/kafka/
+  bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+  
+* Remove default kafka property file:
+  rm config/server.properties
+  
+* Create new property file
+  nano config/server.properties
+  
+  paste the content from: https://github.com/ankitforcodes/apache_kafka/blob/main/cluster/kafka/server.properties
+  
+  Just change 3 property to add hostname:
+    broker.id= 1 or 2 or 3 as per server
+    advertised.listeners=PLAINTEXT://kafka1:9092
+    
+    Zookeeper hosts on line 45: zookeeper.connect=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181/kafka
+    
+* Start kafka: This might fail if you are using less than 2GB memory machine
+  bin/kafka-server-start.sh config/server.properties
+  
+###############################################################################################################
+* Some additional bug fixes:
+  Run:
+    # make sure to fix the __consumer_offsets topic
+     bin/kafka-topics.sh --zookeeper ZOOKEEPR-HOST1:2181/kafka --config min.insync.replicas=1 --topic __consumer_offsets --alter
+
+  
