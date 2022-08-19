@@ -1,17 +1,17 @@
 1. Create topic: 
-  bin/kafka-topics.sh --create --bootstrap-server localhost:9094 --topic ankit-demo --partitions 3 --replication-factor 3
+  bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic ankit-demo --partitions 3 --replication-factor 3
 
 2. List existing topics:
-  bin/kafka-topics.sh --list --bootstrap-server localhost:9093
+  bin/kafka-topics.sh --list --bootstrap-server localhost:9092
   
 3. Describe a topics:
-  bin/kafka-topics.sh --bootstrap-server localhost:9093 --describe --topic ankit-demo
+  bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic ankit-demo
   
 4. Produce message:
-  bin/kafka-console-producer.sh --bootstrap-server localhost:9094 --topic ankit-demo
+  bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic ankit-demo
   
 5. Consume message (latest):
-  bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo
+  bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic ankit-demo
 
 6. Consume message (from beginning):
-  bin/kafka-console-consumer.sh --bootstrap-server localhost:9094 --topic ankit-demo --from-beginning
+  bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic ankit-demo --from-beginning
