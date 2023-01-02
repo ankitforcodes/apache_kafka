@@ -1,0 +1,8 @@
+1. Create the topic with following configs:
+      Number of partitions=1. This is to ensure all messages go the same partition.
+      cleanup.policy=compact. This enables log compaction for the topic.
+      min.cleanable.dirty.ratio=0.001. This is just to ensure log cleanup is triggered always.
+      segment.ms=5000. New segment will be created every 5 seconds. Log compaction will happen on closed segments only
+
+
+        > kafka-topics.sh --bootstrap-server localhost:9092 --create --topic delivery-location     --partitions 1 --replication-factor 1     --config cleanup.policy=compact --config min.cleanable.dirty.ratio=0.001    --config segment.ms=5000  
