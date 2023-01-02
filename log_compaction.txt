@@ -4,6 +4,24 @@
       min.cleanable.dirty.ratio=0.001. This is just to ensure log cleanup is triggered always.
       segment.ms=5000. New segment will be created every 5 seconds. Log compaction will happen on closed segments only
 
-```
       kafka-topics.sh --bootstrap-server localhost:9092 --create --topic delivery-location     --partitions 1 --replication-factor 1     --config cleanup.policy=compact --config min.cleanable.dirty.ratio=0.001    --config segment.ms=5000  
-```
+      
+2. Describe topic to make sure it has been created with right configs:
+      bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic delivery-location
+      
+3. Start a consumer:
+      bin/kafka-console-consumer.sh --bootstrap-server localhost:9092     --topic delivery-location     --from-beginning     --property print.key=true     --property key.separator=,
+      
+4. Start a Kafka producer:
+      bin/kafka-console-producer.sh --bootstrap-server localhost:9092     --topic employee-salary     --property parse.key=true     --property key.separator=,
+      
+5. Create following messages:
+      bin/kafka-console-producer.sh --bootstrap-server localhost:9092     --topic delivery-location     --property parse.key=true     --property key.separator=,
+      
+6. Produce message withe some being repeated:
+      ankit,delhi
+      ram,mumbai
+      shyam,chennai
+      ankit,hyd
+      
+7. After few minutes, start a consumer to observe that ankit arrived only once
