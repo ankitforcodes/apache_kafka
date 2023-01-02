@@ -54,3 +54,5 @@ Step 0: If its a new machine:
       bin/kafka-server-start.sh config/server1.properties
       bin/kafka-server-start.sh config/server2.properties
 
+7. If you are facing error due to less memory:
+      export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
