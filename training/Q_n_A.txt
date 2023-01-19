@@ -1,0 +1,4 @@
+1. How to delete a consumer group information from Kafka so that when consumer from the same group comes up it can get the messages from the beginning:
+  bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --delete --group my-consumer-group
+  
+  
