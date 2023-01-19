@@ -1,0 +1,5 @@
+1. List all the consumer groups:
+   bin/kafka-consumer-groups.sh  --list --bootstrap-server localhost:9092
+   
+2. Delete a consumer group:
+  bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --delete --group my-consumer-group
