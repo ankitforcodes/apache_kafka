@@ -1,0 +1,20 @@
+1. Create a kafka topic with 3 partitions:
+  bin/kafka-topics.sh --bootstrap-server localhost:9092 --create  --topic txn-data --partitions 3
+  
+2. Start a producer client:
+   bin/kafka-console-producer.sh --bootstrap-server localhost:9092  --topic txn-data
+   
+3. Start Consumer1 with consumer-group "groupA": C1
+   bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic txn-data  --formatter kafka.tools.DefaultMessageFormatter   --property print.value=true  --property print.partition=true --group groupA
+   
+4. Send some 4-5 messages from the producer and observe that all the msgs are received in the same consumer C1
+
+5. Start C2 with same groupA:
+    Observe for C1 and C2 divides 3 partitions among themselves
+    
+6. Start C3 with same groupA:
+  Observer how C1 C2 and C3 now have one partititon each
+  
+7. Close any of the consumer and see how abandoned partition is taken up again by one of the consumer
+
+8. Also observer the kafka broker logs for rebalance msg
