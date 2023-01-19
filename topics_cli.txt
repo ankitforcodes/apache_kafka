@@ -15,3 +15,6 @@
 
 6. Consume message (from beginning):
   bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic ankit-demo --from-beginning
+  
+7. Delete topic:
+  kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic first_topic
