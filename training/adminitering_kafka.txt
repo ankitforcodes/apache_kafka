@@ -17,3 +17,9 @@
 3. Resetting offset of a consumer group from a file:
   kafka-consumer-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group group1 --from-file offsets.csv --execute
 
+
+
+************* PRODUCING MESSAGES WITH PROPERTIES *************
+1. Batch Size and Linger MS
+  bin/kafka-console-producer.sh --bootstrap-server localhost:9092  --topic sales-data --producer-property batch.size=10000 --producer-property linger.ms=5000
+  
