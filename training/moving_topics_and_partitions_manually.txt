@@ -1,0 +1,48 @@
+* Let’s generate a hypothetical scenario in which you have a four-broker Kafka cluster
+* You’ve recently added two new brokers, bringing the total up to six
+* You want to move two of your topics (foo1 and foo2) onto brokers 5 and 6
+
+Step1: We create a json file which will have the list of topics we want to move:
+  {
+      "topics": [
+          {
+              "topic": "foo1"
+          },
+          {
+              "topic": "foo2"
+          }
+      ],
+      "version": 1
+  }
+  
+Step2: we can use this JSON file to generate a set of partition moves to move the topics listed in the file topics.json to the brokers with IDs 5 and 6
+  kafka-reassign-partitions.sh --bootstrap-server localhost:9092 --topics-to-move-json-file topics.json --broker-list 5,6 --generate
+
+
+Step3: The above command will generate the plan for us and output the before and after scenario as JSON output on screen:
+  {"version":1,
+  "partitions":[{"topic":"foo1","partition":2,"replicas":[1,2]},
+                {"topic":"foo1","partition":0,"replicas":[3,4]},
+                {"topic":"foo2","partition":2,"replicas":[1,2]},
+                {"topic":"foo2","partition":0,"replicas":[3,4]},
+                {"topic":"foo1","partition":1,"replicas":[2,3]},
+                {"topic":"foo2","partition":1,"replicas":[2,3]}]
+  }
+  
+  Proposed partition reassignment configuration
+  {"version":1,
+  "partitions":[{"topic":"foo1","partition":2,"replicas":[5,6]},
+                {"topic":"foo1","partition":0,"replicas":[5,6]},
+                {"topic":"foo2","partition":2,"replicas":[5,6]},
+                {"topic":"foo2","partition":0,"replicas":[5,6]},
+                {"topic":"foo1","partition":1,"replicas":[5,6]},
+                {"topic":"foo2","partition":1,"replicas":[5,6]}]
+  }
+
+
+Step4: We should copy both the JSON in a safe file, so that we can rollback in case of errors. Save the first JSON in revert-reassignment.json file and 2nd JSON in expand-cluster-reassignment.json file
+
+Step5: Use the expand-cluster-reassignment.json to execute the re-assignement
+  kafka-reassign-partitions.sh --bootstrap-server localhost:9092 --reassignment-json-file expand-cluster-reassignment.json --execute
+
+Note that this can be a very time taking process to complete since the entire partition along with its data needs to move from one broker to another
