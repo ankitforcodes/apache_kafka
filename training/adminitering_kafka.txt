@@ -1,4 +1,12 @@
+************* TOPIC OPERATIONS ****************
+
 1. Creating New Topic
   kafka-topics.sh --create --bootstrap-server localhost:9092 --topic sales-data --partitions 3 --replication-factor 3
 
 2. 
+
+
+
+************* CONSUMER GROUP MANAGEMENT *************
+1. Deleting a consumer group
+  bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --delete --group group1
