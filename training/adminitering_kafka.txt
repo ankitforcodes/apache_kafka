@@ -10,3 +10,10 @@
 ************* CONSUMER GROUP MANAGEMENT *************
 1. Deleting a consumer group
   bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --delete --group group1
+  
+2. Dumping current offset to a file:
+  kafka-consumer-groups.sh --bootstrap-server localhost:9092 --export --group group1 --topic sales-data --reset-offsets --to-current --dry-run > offsets.csv
+
+3. Resetting offset of a consumer group from a file:
+  kafka-consumer-groups.sh --bootstrap-server localhost:9092 --reset-offsets --group group1 --from-file offsets.csv --execute
+
