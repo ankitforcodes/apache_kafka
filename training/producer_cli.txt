@@ -23,3 +23,7 @@ WITH KEYS
     >customer2:logout
     >customer1:add-to-cart
     >customer1:order
+
+
+READ DATA With metadata-information 
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic click-data --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true  --property print.partition=true
