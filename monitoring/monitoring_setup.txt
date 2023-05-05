@@ -23,3 +23,16 @@
 * Start prometheus
   ./prometheus --web.listen-address=161.XX.XX.XXX:9001
   Visit: http://161.XX.XX.XXX:9001/graph
+
+
+
+####### GRAFANA #############
+* wget https://dl.grafana.com/enterprise/release/grafana-enterprise-9.4.7.linux-amd64.tar.gz
+* tar -xvf grafana-enterprise-9.4.7.linux-amd64.tar.gz
+* Edit the conf/defaults.ini file: Add the IP address
+* Start Grafan: bin/grafana-server --config conf/defaults.ini
+* Visit: http://161.XX.XX.XXX:3000/login
+* Username: admin
+* Password: admin
+* Add data source as prometheus
+* Dashboard ID: 721
