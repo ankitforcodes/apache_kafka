@@ -36,3 +36,12 @@
 * Password: admin
 * Add data source as prometheus
 * Dashboard ID: 721
+
+
+
+########## ADD FEW MORE METRICS IN GRAFANA #############
+1. Number of messages in all topics:
+    * Copy any of the panel
+    * Click on Edit panel
+    * In the query, add: kafka_server_brokertopicmetrics_messagesin_total{topic!=""}
+    * Edit the name of panel: No. of Messages in Topics
