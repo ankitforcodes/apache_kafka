@@ -3,7 +3,7 @@
 * wget https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.18.0/jmx_prometheus_javaagent-0.18.0.jar
 * Download the exporter YAML config file: wget https://raw.githubusercontent.com/prometheus/jmx_exporter/main/example_configs/kafka-2_0_0.yml
 * Stop Zookeeper and Kafka
-* export KAFKA_OPTS=-javaagent:/Ankit/jmxexporter/jmx_prometheus_javaagent-0.18.0.jar=8080:/Ankit/jmxexporter/kafka-2_0_0.yml
+* In the KAFKA SERVER START window: export KAFKA_OPTS=-javaagent:/Ankit/jmxexporter/jmx_prometheus_javaagent-0.18.0.jar=8080:/Ankit/jmxexporter/kafka-2_0_0.yml
 * Launch Zookeeper
 * Start Kafka
 * Visit: 172.XX.XX.XX:8080
