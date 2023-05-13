@@ -22,7 +22,7 @@
     
 * Start prometheus
   ./prometheus --web.listen-address=161.XX.XX.XXX:9001
-  Visit: http://161.XX.XX.XXX:9001/graph
+* Visit: http://161.XX.XX.XXX:9001/graph
 
 
 
