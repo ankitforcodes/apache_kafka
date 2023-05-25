@@ -1,0 +1,15 @@
+SSL FIle content:
+
+security.protocol=SSL
+ssl.trustscore.location=/path/to/jks/file.jks
+ssl.trustscore.password=12345
+ssl.keystore.location=/path/to/jks/file.jks
+ssl.keystore.password=12345
+ssl.key.password=1345
+
+
+Consumer Group Command CLI:
+  ./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group-name --command-config ssl-file.properties
+  
+Consumer Command CLI:
+  ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic --group group-name --consumer-config ssl-file.properties
