@@ -16,7 +16,7 @@ Step 0: If its a new machine:
       yum install java
       
 1. Step 1: Java: yum install java
-           Check installation: java --version
+           Check installation: java -version
            
 2. Step 2: Download Kafka Bundle (use latest version)
          : wget  https://archive.apache.org/dist/kafka/2.7.1/kafka_2.13-2.7.1.tgz
